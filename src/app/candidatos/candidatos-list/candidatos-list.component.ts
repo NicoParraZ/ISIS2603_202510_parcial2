@@ -1,4 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { CandidatosService } from '../candidatos.service';
+import { CandidatosDetail } from '../candidatos-detail';
 
 @Component({
   selector: 'app-candidatos-list',
@@ -59,7 +61,20 @@ export class CandidatosListComponent implements OnInit {
     this.seleccionado = true;
   }
 
-  constructor() { }
+  candidatoSeleccionado!: CandidatosDetail;
+
+  constructor(private candidatosService: CandidatosService) { }
+
+  getCandidatos(){
+    this.candidatosService.getCandidatos().subscribe(candidatos => {
+      this.candidatos = candidatos;
+    })
+  }
+
+  selectCandidato(candidato: CandidatosDetail){
+    this.candidatoSeleccionado = candidato;
+    this.seleccionado = true;
+  }
 
   ngOnInit(): void {
       
